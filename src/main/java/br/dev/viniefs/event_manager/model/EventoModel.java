@@ -2,12 +2,20 @@ package br.dev.viniefs.event_manager.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "tb_eventos")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class EventoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

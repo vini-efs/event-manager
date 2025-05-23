@@ -1,11 +1,19 @@
 package br.dev.viniefs.event_manager.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "tb_participação")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class InscricaoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
