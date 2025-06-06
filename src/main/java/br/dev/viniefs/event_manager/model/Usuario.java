@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UsuarioModel {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,15 +28,15 @@ public class UsuarioModel {
     private String email;
     private String senha;
     private LocalDate dataNascimento;
-    // Posso criar um ENUM para definir os tipos
+    @Enumerated(EnumType.STRING)
     private Perfil tipoPerfil;
 
     @OneToMany(mappedBy = "organizador")
     @JsonIgnore
-    private List<EventoModel> eventosOrganizador;
+    private List<Evento> eventosOrganizador;
 
     @OneToMany(mappedBy = "usuario")
     @JsonIgnore
-    private List<InscricaoModel> inscricoes;
+    private List<Inscricao> inscricoes;
 }
 

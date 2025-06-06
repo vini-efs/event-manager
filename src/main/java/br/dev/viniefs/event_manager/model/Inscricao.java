@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
-public class InscricaoModel {
+public class Inscricao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,9 +27,9 @@ public class InscricaoModel {
 
     @ManyToOne
     @JoinColumn(name = "evento_id")
-    private EventoModel evento;
+    private Evento evento;
 
     @OneToOne(mappedBy = "inscricao", cascade = CascadeType.ALL)
-    private CertificadoModel certificado;
+    private Certificado certificado;
 
 }

@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class EventoModel {
+public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,5 +33,5 @@ public class EventoModel {
 
     @OneToMany(mappedBy = "evento")
     @JsonIgnore
-    private List<InscricaoModel> inscritos;
+    private List<Inscricao> inscritos;
 }

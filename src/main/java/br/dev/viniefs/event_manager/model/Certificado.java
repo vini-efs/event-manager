@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CertificadoModel {
+public class Certificado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,5 +27,5 @@ public class CertificadoModel {
 
     @OneToOne
     @JoinColumn(name = "inscricao_id")
-    private InscricaoModel inscricao;
+    private Inscricao inscricao;
 }
