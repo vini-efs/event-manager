@@ -10,32 +10,28 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.List;
 
-
 @Entity
-@Table(name = "tb_usuários")
+@Table(name = "tb_eventos")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class UsuarioModel {
-
+public class EventoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    @Column(unique = true)
-    private String email;
-    private String senha;
-    private LocalDate dataNascimento;
-    // Posso criar um ENUM para definir os tipos
-    private UsuarioModel tipo;
+    private String descricao;
+    private LocalDate dataInicio;
+    private LocalDate dataFim;
+    private String local;
+    private Integer vagas;
 
-    @OneToMany(mappedBy = "organizador")
-    @JsonIgnore
-    private List<EventoModel> eventosOrgnizados;
+    @ManyToOne
+    @JoinColumn(name = "organizador_id")
+    private Usuario organizador;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "evento")
     @JsonIgnore
-    private List<InscricaoModel> inscricoes;
+    private List<InscricaoModel> inscritos;
 }
-

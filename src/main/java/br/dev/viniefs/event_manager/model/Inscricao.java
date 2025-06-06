@@ -23,7 +23,7 @@ public class InscricaoModel {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
-    private UsuarioModel usuario;
+    private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "evento_id")
