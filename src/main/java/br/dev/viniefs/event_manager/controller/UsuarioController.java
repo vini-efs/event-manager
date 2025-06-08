@@ -1,8 +1,13 @@
 package br.dev.viniefs.event_manager.controller;
 
 import br.dev.viniefs.event_manager.dto.UsuarioDto;
+import br.dev.viniefs.event_manager.exceptions.UsuarioNotFoundException;
+import br.dev.viniefs.event_manager.model.Usuario;
 import br.dev.viniefs.event_manager.service.UsuarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,12 +20,12 @@ public class UsuarioController {
     private final UsuarioService service;
 
     @PostMapping("/criar")
-    public UsuarioDto criarUsuario(@RequestBody UsuarioDto usuarioDto) {
+    public UsuarioDto criarUsuario(@Valid @RequestBody UsuarioDto usuarioDto) {
         return service.criarUsuario(usuarioDto);
     }
 
     @PatchMapping("/atualizar/{id}")
-    public UsuarioDto atualizarUsuario(@PathVariable Long id, @RequestBody UsuarioDto usuarioDto) {
+    public UsuarioDto atualizarUsuario(@Valid @PathVariable Long id, @RequestBody UsuarioDto usuarioDto) {
         return service.atualizarUsuario(id, usuarioDto);
     }
 
@@ -30,8 +35,9 @@ public class UsuarioController {
     }
 
     @GetMapping("/listar/{id}")
-    public UsuarioDto listarPorId(@PathVariable Long id) {
-        return service.listarPorId(id);
+    public ResponseEntity<UsuarioDto> listarPorId(@PathVariable Long id) {
+        UsuarioDto usuarioDto = service.listarPorId(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioDto);
     }
 
     @DeleteMapping("/deletar/{id}")

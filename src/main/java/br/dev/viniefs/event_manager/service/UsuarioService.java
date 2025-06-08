@@ -3,6 +3,7 @@ package br.dev.viniefs.event_manager.service;
 
 import br.dev.viniefs.event_manager.dto.UsuarioDto;
 
+import br.dev.viniefs.event_manager.exceptions.UsuarioNotFoundException;
 import br.dev.viniefs.event_manager.mapstruct.UsuarioMapper;
 import br.dev.viniefs.event_manager.mapstruct.UsuarioUpdate;
 import br.dev.viniefs.event_manager.model.Usuario;
@@ -41,12 +42,10 @@ public class UsuarioService {
     }
 
     public UsuarioDto listarPorId(Long id) {
-        Optional<Usuario> usuarioExistente = repository.findById(id);
-        if (usuarioExistente.isPresent()) {
-            Usuario usuarioTemp = usuarioExistente.get();
-            return mapper.toDto(usuarioTemp);
-        }
-        return null;
+        Usuario usuarioExistente = repository.findById(id)
+                .orElseThrow(() -> new UsuarioNotFoundException("Usuário não encontrado!"));
+
+        return mapper.toDto(usuarioExistente);
     }
 
     public void deletarUsuario(Long id) {
