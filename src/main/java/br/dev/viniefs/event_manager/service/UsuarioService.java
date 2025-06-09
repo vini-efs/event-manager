@@ -28,13 +28,10 @@ public class UsuarioService {
     }
 
     public UsuarioDto atualizarUsuario(Long id, UsuarioDto usuarioDto) {
-        Optional<Usuario> usuarioExistente = repository.findById(id);
-        if (usuarioExistente.isPresent()) {
-            Usuario usuarioAtualizado = usuarioExistente.get();
-            update.atualizacaoParcial(usuarioDto, usuarioAtualizado);
-            return mapper.toDto(repository.save(usuarioAtualizado));
-        }
-        return null;
+        Usuario usuarioAtualizado = repository.findById(id)
+                .orElseThrow(() -> new UsuarioNotFoundException("Usuário não existe"));
+        update.atualizacaoParcial(usuarioDto, usuarioAtualizado);
+        return mapper.toDto(repository.save(usuarioAtualizado));
     }
 
     public List<UsuarioDto> listarUsuarios() {
@@ -42,10 +39,9 @@ public class UsuarioService {
     }
 
     public UsuarioDto listarPorId(Long id) {
-        Usuario usuarioExistente = repository.findById(id)
+        Usuario usuarioListar = repository.findById(id)
                 .orElseThrow(() -> new UsuarioNotFoundException("Usuário não encontrado!"));
-
-        return mapper.toDto(usuarioExistente);
+        return mapper.toDto(usuarioListar);
     }
 
     public void deletarUsuario(Long id) {

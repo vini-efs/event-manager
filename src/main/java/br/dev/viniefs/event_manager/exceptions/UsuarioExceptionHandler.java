@@ -13,15 +13,16 @@ import java.time.LocalDateTime;
 public class UsuarioExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(UsuarioNotFoundException.class)
-    private ResponseEntity<ErrorMessage> usuarioNotFoundException(UsuarioNotFoundException exception,
-                                                                  HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> usuarioNotFoundException(UsuarioNotFoundException exception,
+                                                                   HttpServletRequest request) {
 
-        ErrorMessage errorMessage = new ErrorMessage(
+        ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
                 exception.getMessage(),
-                request.getRequestURI());
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
 }
