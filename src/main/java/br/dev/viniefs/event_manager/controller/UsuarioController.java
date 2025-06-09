@@ -20,18 +20,19 @@ public class UsuarioController {
     private final UsuarioService service;
 
     @PostMapping("/criar")
-    public UsuarioDto criarUsuario(@Valid @RequestBody UsuarioDto usuarioDto) {
-        return service.criarUsuario(usuarioDto);
+    public ResponseEntity<UsuarioDto> criarUsuario(@Valid @RequestBody UsuarioDto usuarioDto) {
+        service.criarUsuario(usuarioDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDto);
     }
 
     @PatchMapping("/atualizar/{id}")
-    public UsuarioDto atualizarUsuario(@Valid @PathVariable Long id, @RequestBody UsuarioDto usuarioDto) {
-        return service.atualizarUsuario(id, usuarioDto);
+    public ResponseEntity<UsuarioDto> atualizarUsuario(@Valid @PathVariable Long id, @RequestBody UsuarioDto usuarioDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.atualizarUsuario(id, usuarioDto));
     }
 
     @GetMapping("/listar")
-    public List<UsuarioDto> listarUsuarios() {
-        return service.listarUsuarios();
+    public ResponseEntity<List<UsuarioDto>> listarUsuarios() {
+        return ResponseEntity.status(HttpStatus.OK).body(service.listarUsuarios());
     }
 
     @GetMapping("/listar/{id}")

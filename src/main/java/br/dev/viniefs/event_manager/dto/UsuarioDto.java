@@ -7,7 +7,8 @@ import br.dev.viniefs.event_manager.model.enums.Perfil;
 import java.time.LocalDate;
 import java.util.List;
 
-public record UsuarioDto(String nome,
+public record UsuarioDto(Long id,
+                         String nome,
                          String email,
                          String senha,
                          LocalDate dataNascimento,
