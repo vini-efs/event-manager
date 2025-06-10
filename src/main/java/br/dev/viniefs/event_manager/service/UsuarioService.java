@@ -29,7 +29,7 @@ public class UsuarioService {
 
     public UsuarioDto atualizarUsuario(Long id, UsuarioDto usuarioDto) {
         Usuario usuarioAtualizado = repository.findById(id)
-                .orElseThrow(() -> new UsuarioNotFoundException("Usuário não encontrado!"));
+                .orElseThrow(() -> new UsuarioNotFoundException("Usuário com id '" + id + "' não encontrado!"));
         update.atualizacaoParcial(usuarioDto, usuarioAtualizado);
         return mapper.toDto(repository.save(usuarioAtualizado));
     }
@@ -39,20 +39,15 @@ public class UsuarioService {
     }
 
     public UsuarioDto buscarPorEmail(String email) {
-        Optional<Usuario> usuarioOpt = repository.findByEmail(email);
-
-        if (usuarioOpt.isPresent()) {
-            Usuario usuario = usuarioOpt.get();
-            return mapper.toDto(usuario);
-        }
-
-        throw new UsuarioNotFoundException("Usuário não encontrado!");
+        Usuario usuarioExistente = repository.findByEmail(email)
+                .orElseThrow(() -> new UsuarioNotFoundException("Usuário com email: " + email + " não encontrado!"));
+        return mapper.toDto(usuarioExistente);
     }
 
-    public void deletarUsuario(Long id) {
-        Usuario usuarioExistente = repository.findById(id)
-                .orElseThrow(() -> new UsuarioNotFoundException("Usuário não encontrado!"));
-        repository.deleteById(id);
+    public void deletarUsuario(String email) {
+        Usuario usuarioExistente = repository.findByEmail(email)
+                .orElseThrow(() -> new UsuarioNotFoundException("Usuário com email: " + email + " não encontrado!"));
+        repository.delete(usuarioExistente);
     }
 }
 
