@@ -35,10 +35,10 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(service.listarUsuarios());
     }
 
-    @GetMapping("/listar/{id}")
-    public ResponseEntity<UsuarioDto> listarPorId(@PathVariable Long id) {
-        UsuarioDto usuarioDto = service.listarPorId(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioDto);
+    @GetMapping("/listar/{email}")
+    public ResponseEntity<UsuarioDto> buscarPorEmail(@PathVariable String email) {
+        UsuarioDto usuarioDto = service.buscarPorEmail(email);
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioDto);
     }
 
     @DeleteMapping("/deletar/{id}")

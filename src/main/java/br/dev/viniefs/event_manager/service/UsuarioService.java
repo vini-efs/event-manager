@@ -38,10 +38,15 @@ public class UsuarioService {
         return mapper.listaUsuarioDTO(repository.findAll());
     }
 
-    public UsuarioDto listarPorId(Long id) {
-        Usuario usuarioListar = repository.findById(id)
-                .orElseThrow(() -> new UsuarioNotFoundException("Usuário não encontrado!"));
-        return mapper.toDto(usuarioListar);
+    public UsuarioDto buscarPorEmail(String email) {
+        Optional<Usuario> usuarioOpt = repository.findByEmail(email);
+
+        if (usuarioOpt.isPresent()) {
+            Usuario usuario = usuarioOpt.get();
+            return mapper.toDto(usuario);
+        }
+
+        throw new UsuarioNotFoundException("Usuário não encontrado!");
     }
 
     public void deletarUsuario(Long id) {
